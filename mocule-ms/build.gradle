@@ -1,0 +1,19 @@
+allprojects {
+    repositories {
+        flatDir { dirs 'libs', project(':').file('libs') }
+        mavenLocal()
+        maven{url 'https://maven.aliyun.com/nexus/content/groups/public'}
+        mavenCentral()
+    }
+    group 'com.yunlu.mechanismmodel'
+    ext {
+        springVersion = '4.3.9.RELEASE'
+        springBootVersion = '1.5.4.RELEASE'
+    }
+
+    configurations {
+        compile.exclude module: "spring-boot-starter-logging"
+    }
+
+}
+

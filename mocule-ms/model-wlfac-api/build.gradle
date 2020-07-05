@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        flatDir { dirs 'libs', project(':').file('libs') }
+        mavenLocal()
+        maven{url 'https://maven.aliyun.com/nexus/content/groups/public'}
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        // 以下为无网络情况下需手动导入的依赖
+        classpath("org.springframework.boot:spring-boot-loader-tools:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE")
+    }
+}
+
+group 'com.yunlu.mechanismmodel.wlfac'
+version '0.0.1-SNAPSHOT'
+
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'war'
+
+mainClassName = "com.yunlu.mechanismmodel.wlfac.MainApplication"
+
+sourceCompatibility = 1.8
+configurations {
+    compile.exclude module: "spring-boot-starter-logging"
+}
+
+dependencies {
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+    compile ("org.slf4j:slf4j-log4j12:1.7.25")
+
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.60'
+
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "${springBootVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "${springBootVersion}"
+}
